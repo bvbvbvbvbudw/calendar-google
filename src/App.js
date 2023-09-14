@@ -1,22 +1,22 @@
 import React from 'react';
-// import { GoogleSignIn } from 'react-oauth/google-signin';
+import {GoogleOAuthProvider, GoogleLogin} from '@react-oauth/google'
 
 function App() {
-    // const handleSuccess = (response) => {
-    //     console.log('Успешная аутентификация', response);
-    // };
-    //
-    // const handleError = (error) => {
-    //     console.error('Ошибка аутентификации', error);
-    // };
+
+
 
     return (
         <div className="App">
-            {/*<GoogleSignIn*/}
-            {/*    clientId="YOUR_CLIENT_ID"*/}
-            {/*    onSuccess={handleSuccess}*/}
-            {/*    onError={handleError}*/}
-            {/*/>*/}
+            <GoogleOAuthProvider clientId={'524450418250-1emdb2dnk2v95t5a8s5ltefjrhop85i8.apps.googleusercontent.com'}>
+                <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse)
+                    }}
+                    onError={() => {
+                        console.log('login error')
+                    }}
+                />
+            </GoogleOAuthProvider>
         </div>
     );
 }
