@@ -25,7 +25,7 @@ function App() {
         gapi.load('client:auth2', () => {
             gapi.client.init({
                 apiKey: 'AIzaSyBr1i2szcRo1NQ6ETowmlGueloqq35eH3M',
-                clientId: '524450418250-1emdb2dnk2v95t5a8s5ltefjrhop85i8.apps.googleusercontent.com',
+                clientId: '524450418250-1vg717h32a9dfob8a4eeq4a7lsbonihm.apps.googleusercontent.com',
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
                 scope: 'https://www.googleapis.com/auth/calendar.readonly',
             }).then(() => {
@@ -37,7 +37,7 @@ function App() {
 
     return (
         <div className="App">
-            <GoogleOAuthProvider clientId={'524450418250-1emdb2dnk2v95t5a8s5ltefjrhop85i8.apps.googleusercontent.com'}>
+            <GoogleOAuthProvider clientId={'524450418250-1vg717h32a9dfob8a4eeq4a7lsbonihm.apps.googleusercontent.com'}>
                 <GoogleLogin
                     onSuccess={(credentialResponse) => {
                         console.log(credentialResponse);
