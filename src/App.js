@@ -12,7 +12,7 @@ function App() {
     var CLIENT_ID = "925413843938-hsl81da43sc7c25v0mrqqh4ic4v97mg8.apps.googleusercontent.com"
     var API_KEY = "AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0"
     var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
-    var SCOPES = "https://www.googleapis.com/auth/calendar.events"
+    var SCOPES = "https://www.googleapis.com/calendar/v3/calendars/events.events"
 
     const handleClick = () => {
         gapi.load('client:auth2', () => {
