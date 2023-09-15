@@ -23,7 +23,7 @@ function App() {
     useEffect(() => {
         gapi.load('client:auth2', () => {
             gapi.client.init({
-                apiKey: apiKey, // Используем apiKey
+                apiKey: 'AIzaSyBr1i2szcRo1NQ6ETowmlGueloqq35eH3M', // Используем apiKey
                 clientId: '524450418250-1vg717h32a9dfob8a4eeq4a7lsbonihm.apps.googleusercontent.com',
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
                 scope: 'https://www.googleapis.com/auth/calendar.readonly',
