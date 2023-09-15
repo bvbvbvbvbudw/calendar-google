@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { gapi } from 'gapi-script';
 
 function App() {
+    const [events, setEvents] = useState([]);
+
     var CLIENT_ID = "925413843938-hsl81da43sc7c25v0mrqqh4ic4v97mg8.apps.googleusercontent.com";
     var API_KEY = "AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0";
     var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -24,44 +26,6 @@ function App() {
 
             gapi.auth2.getAuthInstance().signIn()
                 .then(() => {
-                    var event = {
-                        'summary': 'Awesome Event!',
-                        'location': '800 Howard St., San Francisco, CA 94103',
-                        'description': 'Really great refreshments',
-                        'start': {
-                            'dateTime': '2020-06-28T09:00:00-07:00',
-                            'timeZone': 'America/Los_Angeles'
-                        },
-                        'end': {
-                            'dateTime': '2020-06-28T17:00:00-07:00',
-                            'timeZone': 'America/Los_Angeles'
-                        },
-                        'recurrence': [
-                            'RRULE:FREQ=DAILY;COUNT=2'
-                        ],
-                        'attendees': [
-                            {'email': 'lpage@example.com'},
-                            {'email': 'sbrin@example.com'}
-                        ],
-                        'reminders': {
-                            'useDefault': false,
-                            'overrides': [
-                                {'method': 'email', 'minutes': 24 * 60},
-                                {'method': 'popup', 'minutes': 10}
-                            ]
-                        }
-                    };
-
-                    var request = gapi.client.calendar.events.insert({
-                        'calendarId': 'primary',
-                        'resource': event,
-                    });
-
-                    request.execute(event => {
-                        console.log(event);
-                        window.open(event.htmlLink);
-                    });
-
                     gapi.client.calendar.events.list({
                         'calendarId': 'primary',
                         'timeMin': (new Date()).toISOString(),
@@ -71,7 +35,7 @@ function App() {
                         'orderBy': 'startTime'
                     }).then(response => {
                         const events = response.result.items;
-                        console.log('EVENTS: ', events);
+                        setEvents(events);
                     }, error => {
                         console.error('Error fetching events:', error);
                     });
@@ -83,10 +47,16 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <p>Click to add event to Google Calendar</p>
-                <p style={{fontSize: 18}}>Uncomment the get events code to get events</p>
-                <p style={{fontSize: 18}}>Don't forget to add your Client Id and Api key</p>
-                <button style={{width: 100, height: 50}} onClick={handleClick}>Add Event</button>
+                <p>Click to get events from Google Calendar</p>
+                <button style={{width: 100, height: 50}} onClick={handleClick}>Get Events</button>
+                <div>
+                    {events.map((event, index) => (
+                        <div key={index}>
+                            <h3>{event.summary}</h3>
+                            <p>{event.start.dateTime}</p>
+                        </div>
+                    ))}
+                </div>
             </header>
         </div>
     );
