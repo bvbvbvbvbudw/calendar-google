@@ -26,13 +26,14 @@ function App() {
 
             gapi.auth2.getAuthInstance().signIn()
                 .then(() => {
+                    // Получаем события, к которым вы присоединены
                     gapi.client.calendar.events.list({
-                        'calendarId': 'primary',
                         'timeMin': (new Date()).toISOString(),
                         'showDeleted': false,
                         'singleEvents': true,
                         'maxResults': 10,
-                        'orderBy': 'startTime'
+                        'orderBy': 'startTime',
+                        'q': 'attendees:YOUR_EMAIL@gmail.com' // Замените YOUR_EMAIL на ваш адрес электронной почты
                     }).then(response => {
                         const events = response.result.items;
                         setEvents(events);
