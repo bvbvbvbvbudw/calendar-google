@@ -20,7 +20,6 @@ function App() {
     };
 
     useEffect(() => {
-        const test = () => {
             gapi.load('client:auth2', () => {
                 gapi.client.init({
                     apiKey: 'AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0', // Используем apiKey
@@ -31,8 +30,6 @@ function App() {
                     gapi.auth2.getAuthInstance().signIn().then(loadEvents);
                 });
             });
-        }
-        test();
     }, []); // Добавляем apiKey в зависимости, чтобы перезагружать gapi.client.init при изменении
 
     return (
@@ -48,7 +45,6 @@ function App() {
                 />
             </GoogleOAuthProvider>
             <button onClick={loadEvents}>load</button>
-            <button onClick={test}>test</button>
             <h2>События:</h2>
             <ul>
                 {events.map((event) => (
