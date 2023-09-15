@@ -9,7 +9,7 @@ function App() {
     var CLIENT_ID = "925413843938-hsl81da43sc7c25v0mrqqh4ic4v97mg8.apps.googleusercontent.com";
     var API_KEY = "AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0";
     var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
     const handleClick = () => {
         gapi.load('client:auth2', () => {
@@ -26,14 +26,13 @@ function App() {
 
             gapi.auth2.getAuthInstance().signIn()
                 .then(() => {
-                    // Получаем события, к которым вы присоединены
                     gapi.client.calendar.events.list({
+                        'calendarId': 'primary',
                         'timeMin': (new Date()).toISOString(),
                         'showDeleted': false,
                         'singleEvents': true,
                         'maxResults': 10,
-                        'orderBy': 'startTime',
-                        'q': 'attendees:YOUR_EMAIL@gmail.com' // Замените YOUR_EMAIL на ваш адрес электронной почты
+                        'orderBy': 'startTime'
                     }).then(response => {
                         const events = response.result.items;
                         setEvents(events);
