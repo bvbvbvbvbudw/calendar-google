@@ -32,7 +32,8 @@ function App() {
                         'showDeleted': false,
                         'singleEvents': true,
                         'maxResults': 10,
-                        'orderBy': 'startTime'
+                        'orderBy': 'startTime',
+                        'q': '#ITUniv - Бакалаврат, 1 курс, 2023 р.в. (4CS)'
                     }).then(response => {
                         const events = response.result.items;
                         setEvents(events);
