@@ -14,6 +14,7 @@ function App() {
             maxResults: 10,
             orderBy: 'startTime',
         }).then(response => {
+            console.log(response)
             const events = response.result.items;
             setEvents(events);
         });
