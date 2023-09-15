@@ -26,7 +26,7 @@ function App() {
 
             gapi.auth2.getAuthInstance().signIn()
                 .then(() => {
-                    gapi.client.calendar.events.list({
+                    gapi.client.calendar.list({
                         'calendarId': 'primary',
                         'timeMin': (new Date()).toISOString(),
                         'showDeleted': false,
