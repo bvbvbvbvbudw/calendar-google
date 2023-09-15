@@ -1,35 +1,29 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {gapi} from 'gapi-script';
+import { gapi } from 'gapi-script';
 
 function App() {
-
-    // var gapi = window.gapi
-    /*
-      Update with your own Client Id and Api key
-    */
-    var CLIENT_ID = "925413843938-hsl81da43sc7c25v0mrqqh4ic4v97mg8.apps.googleusercontent.com"
-    var API_KEY = "AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0"
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
-    var SCOPES = "https://www.googleapis.com/calendar/v3/calendars/events.events"
+    var CLIENT_ID = "925413843938-hsl81da43sc7c25v0mrqqh4ic4v97mg8.apps.googleusercontent.com";
+    var API_KEY = "AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0";
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    var SCOPES = "https://www.googleapis.com/auth/calendar.events";
 
     const handleClick = () => {
         gapi.load('client:auth2', () => {
-            console.log('loaded client')
+            console.log('loaded client');
 
             gapi.client.init({
                 apiKey: API_KEY,
                 clientId: CLIENT_ID,
                 discoveryDocs: DISCOVERY_DOCS,
                 scope: SCOPES,
-            })
+            });
 
-            gapi.client.load('calendar', 'v3', () => console.log('bam!'))
+            gapi.client.load('calendar', 'v3', () => console.log('bam!'));
 
             gapi.auth2.getAuthInstance().signIn()
                 .then(() => {
-
                     var event = {
                         'summary': 'Awesome Event!',
                         'location': '800 Howard St., San Francisco, CA 94103',
@@ -56,24 +50,18 @@ function App() {
                                 {'method': 'popup', 'minutes': 10}
                             ]
                         }
-                    }
+                    };
 
                     var request = gapi.client.calendar.events.insert({
                         'calendarId': 'primary',
                         'resource': event,
-                    })
+                    });
 
                     request.execute(event => {
-                        console.log(event)
-                        window.open(event.htmlLink)
-                    })
+                        console.log(event);
+                        window.open(event.htmlLink);
+                    });
 
-
-                    /*
-                        Uncomment the following block to get events
-                    */
-
-                    // get events
                     gapi.client.calendar.events.list({
                         'calendarId': 'primary',
                         'timeMin': (new Date()).toISOString(),
@@ -82,16 +70,14 @@ function App() {
                         'maxResults': 10,
                         'orderBy': 'startTime'
                     }).then(response => {
-                        const events = response.result.items
-                        console.log('EVENTS: ', events)
-                    })
-
-
-
-                })
-        })
+                        const events = response.result.items;
+                        console.log('EVENTS: ', events);
+                    }, error => {
+                        console.error('Error fetching events:', error);
+                    });
+                });
+        });
     }
-
 
     return (
         <div className="App">
