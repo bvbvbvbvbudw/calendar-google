@@ -7,7 +7,7 @@ function App() {
     const [events, setEvents] = useState([]);
 
     var CLIENT_ID = "925413843938-hsl81da43sc7c25v0mrqqh4ic4v97mg8.apps.googleusercontent.com";
-    var API_KEY = "YOUR_API_KEY"; // Replace with your API key
+    var API_KEY = "AIzaSyBmkMhO2LrrXjFcyMp-ROWXzGeBA_ycuw0";
     var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
     var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
@@ -32,14 +32,12 @@ function App() {
                         'showDeleted': false,
                         'singleEvents': true,
                         'maxResults': 10,
-                        'orderBy': 'startTime'
+                        'orderBy': 'startTime',
+                        'q': '#ITUniv - Бакалаврат, 1 курс, 2023 р.в. (4CS)'
                     }).then(response => {
                         console.log(response)
-                        const allEvents = response.result.items;
-                        const filteredEvents = allEvents.filter(event =>
-                            event.summary && event.summary.includes('#ITUniv - Бакалаврат, 1 курс, 2023 р.в. (4CS)')
-                        );
-                        setEvents(filteredEvents);
+                        const events = response.result.items;
+                        setEvents(events);
                     }, error => {
                         console.error('Error fetching events:', error);
                     });
